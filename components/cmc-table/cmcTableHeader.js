@@ -10,7 +10,7 @@ const CMCtableHeader = () => {
         <tr>
             <th></th>
             <th className="flex items-center"><b># &nbsp;</b><ChevronDown /></th>
-            <th>Name</th>
+            <th>Namesds</th>
             <th>Price</th>
             <th>24h %</th>
             <th>7d %</th>
