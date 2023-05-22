@@ -8,6 +8,7 @@ import CMCtableRow from "./cmcTableRow";
 const CMCtable = () => {
   let { getCoins, searchValue } = useContext(CoinMarketContext);
   let [coinData, setCoinData] = useState(null);
+  let [price, setPrice] = useState(null);
 
   const setData = useCallback(async () => {
     try {
@@ -18,10 +19,9 @@ const CMCtable = () => {
     }
   }, [getCoins]);
 
-  
-
   useEffect(() => {
     setData();
+
   }, [setData]);
   function filterData() {
     if (searchValue === "") {
@@ -33,6 +33,32 @@ const CMCtable = () => {
     }
   }
 
+  let ws = new WebSocket("wss://stream.coinmarketcap.com/price/latest");
+  ws.onopen = function () {
+    ws.send(
+      JSON.stringify({
+        method: "subscribe",
+        id: "price",
+        data: {
+          cryptoIds: ["1"],
+          index: null,
+        },
+      })
+    );
+  };
+  useEffect(() => {
+  ws.onmessage = function (event) {
+    let price=JSON.parse(event.data);
+    setPrice(price.d.cr.p);
+    console.log(price.d.cr.p);
+  };
+  }, [ws]);
+
+  console.log(ws);
+  ws.onclose = function () {
+    console.log("disconnected");
+  };
+
   coinData = filterData();
 
   return (
@@ -40,6 +66,7 @@ const CMCtable = () => {
       <div className="mx-auto max-w-screen-2xl">
         <table className="w-full">
           <CMCtableHeader />
+          {price}
 
           {coinData ? (
             coinData.map((coin, index) => {
@@ -64,7 +91,6 @@ const CMCtable = () => {
             })
           ) : (
             <tbody>
-
               <tr>
                 <td>No se ha encontrado nada</td>
               </tr>

@@ -1,17 +1,18 @@
 import React from 'react'
 
 
-function generateStaticParams(){
+function getStaticProps(){
     return {
-        params: {
+        props: {
         id: 'bitcoin'
         }
     }
 }
 
+
 function coin({id}) {
   return (
-    <div>{id}</div>
+    <div>{id}asds</div>
   )
 }
 
