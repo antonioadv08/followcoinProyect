@@ -23,7 +23,9 @@ export const CoinMarketProvider = ({ children }) => {
 
   const getCoins = async () => {
     try {
-      const res = await fetch("/api/getTopTen");
+      const res = await fetch("/api/getCoins");
+      console.log("getting coins");
+
       const data = await res.json();
       return data.data.data;
     } catch (e) {

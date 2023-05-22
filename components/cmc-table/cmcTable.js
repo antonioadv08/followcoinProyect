@@ -7,14 +7,7 @@ import CMCtableRow from "./cmcTableRow";
 
 const CMCtable = () => {
   let { getCoins, searchValue } = useContext(CoinMarketContext);
-
   let [coinData, setCoinData] = useState(null);
-
-
-
-  useEffect(() => {
-    setData();
-  }, []);
 
   const setData = useCallback(async () => {
     try {
@@ -24,7 +17,12 @@ const CMCtable = () => {
       console.log(e.message);
     }
   }, [getCoins]);
+
   
+
+  useEffect(() => {
+    setData();
+  }, [setData]);
   function filterData() {
     if (searchValue === "") {
       return coinData;
@@ -33,16 +31,9 @@ const CMCtable = () => {
         return coin.name.toLowerCase().includes(searchValue.toLowerCase());
       });
     }
-    
   }
 
   coinData = filterData();
-
-  
-
-
-
-  
 
   return (
     <div className="text-white font-bold">
@@ -72,9 +63,12 @@ const CMCtable = () => {
               );
             })
           ) : (
-            <>
-<h1>No se ha encontrado nada</h1>
-            </>
+            <tbody>
+
+              <tr>
+                <td>No se ha encontrado nada</td>
+              </tr>
+            </tbody>
           )}
         </table>
       </div>
