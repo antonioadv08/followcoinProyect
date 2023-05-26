@@ -24,7 +24,6 @@ export const CoinMarketProvider = ({ children }) => {
   const getCoins = async () => {
     try {
       const res = await fetch("/api/getCoins");
-      console.log("getting coins");
 
       const data = await res.json();
       return data.data.data;
@@ -32,6 +31,7 @@ export const CoinMarketProvider = ({ children }) => {
       console.log(e.message);
     }
   };
+  
   return (
     <CoinMarketContext.Provider
       value={{

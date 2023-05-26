@@ -6,9 +6,11 @@ import CoinNameRow from "./coinNameRow";
 import Rate from "./rate";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import "tailwindcss/tailwind.css";
 
 const styles = {
   tableRow: `text-white border-b border-gray-800 text-[0.93rem]`,
+  
 };
 
 const CMCtableRow = ({
@@ -74,7 +76,7 @@ const CMCtableRow = ({
 
         {coinIcon && coinIcon ? (
           <td className="cursor-pointer">
-            <Link href={coinSymbol}  >
+            <Link href={`coin/${coinSymbol}`}  >
               <CoinNameRow name={coinName} icon={coinIcon} />
             </Link>
           </td>

@@ -1,5 +1,6 @@
 import Search from "../components/search";
 import Image from "next/image";
+import Link from "next/link";
 //  import Search from '../assets/svg/search'
 //  import { ConnectButton } from 'web3uikit'
 import { useContext } from "react";
@@ -21,13 +22,14 @@ const Header = () => {
   //    const { getQuote } = useContext(CoinMarketContext)
   return (
     <div className={styles.header}>
-      <Image
-        alt=""
-        src="https://s2.coinmarketcap.com/static/cloud/img/coinmarketcap_white_1.svg"
-        width={220}
-        height={220}
-      />
-
+      <Link href="/">
+        <Image
+          alt=""
+          src="https://s2.coinmarketcap.com/static/cloud/img/coinmarketcap_white_1.svg"
+          width={220}
+          height={220}
+        />
+      </Link>
       <div className={styles.headerWrapper}>
         <nav className={styles.nav}>
           <div className={styles.navItem}>
@@ -47,7 +49,7 @@ const Header = () => {
           {/* <ConnectButton /> */}
           <div className={styles.inputContainer}>
             {/* <Search /> */}
-            <Search/>
+            <Search />
           </div>
         </div>
       </div>

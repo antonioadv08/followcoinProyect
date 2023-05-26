@@ -4,9 +4,11 @@ import btc from "../../assets/btc.png";
 import { CoinMarketContext } from "../../context/context";
 import CMCtableHeader from "./cmcTableHeader";
 import CMCtableRow from "./cmcTableRow";
+import { ScaleLoader } from "react-spinners";
 
 const CMCtable = () => {
   let { getCoins, searchValue } = useContext(CoinMarketContext);
+
   let [coinData, setCoinData] = useState(null);
   let [price, setPrice] = useState(null);
 
@@ -21,7 +23,6 @@ const CMCtable = () => {
 
   useEffect(() => {
     setData();
-
   }, [setData]);
   function filterData() {
     if (searchValue === "") {
@@ -33,31 +34,37 @@ const CMCtable = () => {
     }
   }
 
-  let ws = new WebSocket("wss://stream.coinmarketcap.com/price/latest");
-  ws.onopen = function () {
-    ws.send(
-      JSON.stringify({
-        method: "subscribe",
-        id: "price",
-        data: {
-          cryptoIds: ["1"],
-          index: null,
-        },
-      })
-    );
-  };
-  useEffect(() => {
-  ws.onmessage = function (event) {
-    let price=JSON.parse(event.data);
-    setPrice(price.d.cr.p);
-    console.log(price.d.cr.p);
-  };
-  }, [ws]);
+  // let ws = new WebSocket("wss://stream.coinmarketcap.com/price/latest");
+  // ws.onopen = function () {
+  //   ws.send(
+  //     JSON.stringify({
+  //       method: "subscribe",
+  //       id: "price",
+  //       data: {
+  //         cryptocmIds: ["1"],
+  //         index: null,
+  //       },
+  //     })
+  //   );
+  // };
+  // ws.onmessage = function (event) {
+  //   let price = JSON.parse(event.data);
+  //   setPrice(price.d.cr.p);
+  //   console.log(price.d.cr.p);
+  // };
+  // console.log(price);
+  // useEffect(() => {
+  //   ws.onmessage = function (event) {
+  //     let price = JSON.parse(event.data);
+  //     setPrice(price.d.cr.p);
+  //     console.log(price.d.cr.p);
+  //   };
+  // }, [ws]);
 
-  console.log(ws);
-  ws.onclose = function () {
-    console.log("disconnected");
-  };
+  // // console.log(ws);
+  // ws.onclose = function () {
+  //   // console.log("disconnected");
+  // };
 
   coinData = filterData();
 
@@ -92,7 +99,10 @@ const CMCtable = () => {
           ) : (
             <tbody>
               <tr>
-                <td>No se ha encontrado nada</td>
+                <td>
+                  {" "}
+                  <ScaleLoader color="#36d7b7" />
+                </td>
               </tr>
             </tbody>
           )}
