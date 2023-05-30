@@ -1,10 +1,11 @@
+"use client";
 import Search from "../components/search";
 import Image from "next/image";
 import Link from "next/link";
 //  import Search from '../assets/svg/search'
 //  import { ConnectButton } from 'web3uikit'
 import { useContext } from "react";
-//  import { CoinMarketContext } from '../context/context'
+import { CoinMarketContext } from "../context/context";
 
 const styles = {
   navLink: `text-white flex mx-[10px]`,
@@ -20,8 +21,15 @@ const styles = {
 
 const Header = () => {
   //    const { getQuote } = useContext(CoinMarketContext)
+
+  //comprobar si el usuario esta logueado desde el context
+  const { user } = useContext(CoinMarketContext);
+
+  console.log(user);
+
   return (
     <div className={styles.header}>
+      {user && <div>hola {user.name}</div>}
       <Link href="/">
         <Image
           alt=""
@@ -48,9 +56,17 @@ const Header = () => {
         <div className="flex items-center">
           {/* <ConnectButton /> */}
           <div className={styles.inputContainer}>
-            {/* <Search /> */}
             <Search />
           </div>
+          {user ? (
+            <Link href="/api/auth/signout">
+              <div className={styles.cursorPointer}>Logout</div>
+            </Link>
+          ) : (
+            <Link href="/api/auth/signin">
+              <div className={styles.cursorPointer}>Login</div>
+            </Link>
+          )}
         </div>
       </div>
     </div>

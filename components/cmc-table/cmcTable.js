@@ -27,7 +27,7 @@ const CMCtable = () => {
   function filterData() {
     if (searchValue === "") {
       return coinData;
-    } else {
+    } else if (coinData) {
       return coinData.filter((coin) => {
         return coin.name.toLowerCase().includes(searchValue.toLowerCase());
       });

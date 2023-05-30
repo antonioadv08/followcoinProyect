@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { createChart } from "lightweight-charts";
-import Hammer from "hammerjs";
 
 function chart({ historicalPrices }) {
 

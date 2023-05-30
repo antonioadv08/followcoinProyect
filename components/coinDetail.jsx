@@ -4,6 +4,7 @@ import { ScaleLoader } from "react-spinners";
 import "tailwindcss/tailwind.css";
 import Image from "next/image";
 import Chart from "./chart";
+import Chat from "./chat";
 
 function coinDetail({ coin }) {
   const [coinInfo, setCoinInfo] = useState(null);
@@ -64,6 +65,8 @@ function coinDetail({ coin }) {
       ) : (
         <ScaleLoader color="#36d7b7" />
       )}
+      <Chat/>
+
     </div>
   );
 }

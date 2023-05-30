@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useState, useEffect } from "react";
+import { getSession } from "next-auth/react";
 
 // import {
 //   dogeAbi,
@@ -16,6 +17,7 @@ export const CoinMarketContext = createContext();
 
 export const CoinMarketProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState("");
+  const [user, setUser] = useState(null);
 
   const setSearchedCoin = (data) => {
     setSearchValue(data);
@@ -31,13 +33,26 @@ export const CoinMarketProvider = ({ children }) => {
       console.log(e.message);
     }
   };
-  
+
+  useEffect(() => {
+    (async () => {
+      const session = await getSession();
+      
+      if (session) {
+        setUser(session.user);
+      }
+    })();
+  }, []);
+
   return (
     <CoinMarketContext.Provider
       value={{
         getCoins,
         setSearchedCoin,
         searchValue,
+        setSearchValue,
+        user,
+        
       }}
     >
       {children}
