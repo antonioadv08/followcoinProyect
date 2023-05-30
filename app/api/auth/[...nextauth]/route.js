@@ -6,7 +6,7 @@ import LinkedinProvider from "next-auth/providers/linkedin";
 import TwitterProvider from "next-auth/providers/twitter";
 import InstagramProvider from "next-auth/providers/instagram";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "../../../../lib/mongodb"
+import clientPromise from "../../../../lib/mongodb";
 
 const handler = NextAuth({
   providers: [
@@ -32,14 +32,12 @@ const handler = NextAuth({
       version: "2.0",
     }),
     InstagramProvider({
-        clientId: process.env.INSTAGRAM_ID,
-        clientSecret: process.env.INSTAGRAM_SECRET,
+      clientId: process.env.INSTAGRAM_ID,
+      clientSecret: process.env.INSTAGRAM_SECRET,
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
-  
-  
-  // A database is optional, but required to persist accounts in a database
+
   database: process.env.DATABASE_URL,
 });
 
