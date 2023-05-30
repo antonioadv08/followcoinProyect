@@ -34,37 +34,6 @@ const CMCtable = () => {
     }
   }
 
-  // let ws = new WebSocket("wss://stream.coinmarketcap.com/price/latest");
-  // ws.onopen = function () {
-  //   ws.send(
-  //     JSON.stringify({
-  //       method: "subscribe",
-  //       id: "price",
-  //       data: {
-  //         cryptocmIds: ["1"],
-  //         index: null,
-  //       },
-  //     })
-  //   );
-  // };
-  // ws.onmessage = function (event) {
-  //   let price = JSON.parse(event.data);
-  //   setPrice(price.d.cr.p);
-  //   console.log(price.d.cr.p);
-  // };
-  // console.log(price);
-  // useEffect(() => {
-  //   ws.onmessage = function (event) {
-  //     let price = JSON.parse(event.data);
-  //     setPrice(price.d.cr.p);
-  //     console.log(price.d.cr.p);
-  //   };
-  // }, [ws]);
-
-  // // console.log(ws);
-  // ws.onclose = function () {
-  //   // console.log("disconnected");
-  // };
 
   coinData = filterData();
 
