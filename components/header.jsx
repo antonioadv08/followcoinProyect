@@ -25,8 +25,6 @@ const Header = () => {
   //comprobar si el usuario esta logueado desde el context
   const { user } = useContext(CoinMarketContext);
 
-  console.log(user);
-
   return (
     <div className={styles.header}>
       {user && <div>hola {user.name}</div>}
@@ -43,14 +41,17 @@ const Header = () => {
           <div className={styles.navItem}>
             <div className={styles.navLink}>Exchange</div>
           </div>
+          <Link href="/portfolio">
 
           <div className={styles.navItem}>
             <div className={styles.navLink}>Portfolio</div>
           </div>
-
-          <div className={styles.navItem}>
-            <div className={styles.navLink}>Watchlist</div>
-          </div>
+          </Link>
+          <Link href="/watchlist">
+            <div className={styles.navItem}>
+              <div className={styles.navLink}>Watchlist</div>
+            </div>
+          </Link>
         </nav>
 
         <div className="flex items-center">

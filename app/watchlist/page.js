@@ -1,16 +1,18 @@
 "use client";
-import { useContext, useEffect, useState, useCallback } from "react";
-import btc from "../../assets/btc.png";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { CoinMarketContext } from "../../context/context";
-import CMCtableHeader from "./cmcTableHeader";
-import CMCtableRow from "./cmcTableRow";
+import "tailwindcss/tailwind.css";
 import { ScaleLoader } from "react-spinners";
+import CMCtableHeader from "@/components/cmc-table/cmcTableHeader";
+import CMCtableRow from "@/components/cmc-table/cmcTableRow";
+import btc from "@/assets/btc.png";
 
-const CMCtable = () => {
-  let { getCoins, searchValue,setSearchValue } = useContext(CoinMarketContext);
+function watchlist() {
+  const { watchlist } = useContext(CoinMarketContext);
+
+  let { getCoins } = useContext(CoinMarketContext);
 
   let [coinData, setCoinData] = useState(null);
-  let [price, setPrice] = useState(null);
 
   const setData = useCallback(async () => {
     try {
@@ -23,19 +25,15 @@ const CMCtable = () => {
 
   useEffect(() => {
     setData();
-    setSearchValue("");
+    filterData();
   }, []);
   function filterData() {
-    if (searchValue === "") {
-      return coinData;
-    } else if (coinData) {
-      return coinData.filter((coin) => {
-        return coin.name.toLowerCase().includes(searchValue.toLowerCase());
-      });
-    }
+    if (!coinData) return null;
+    let filteredData = coinData.filter((coin) => {
+      return watchlist.includes(coin.symbol);
+    });
+    return filteredData;
   }
-
-
   coinData = filterData();
 
   return (
@@ -43,8 +41,6 @@ const CMCtable = () => {
       <div className="mx-auto max-w-screen-2xl">
         <table className="w-full">
           <CMCtableHeader />
-          {price}
-
           {coinData ? (
             coinData.map((coin, index) => {
               return (
@@ -80,6 +76,6 @@ const CMCtable = () => {
       </div>
     </div>
   );
-};
+}
 
-export default CMCtable;
+export default watchlist;

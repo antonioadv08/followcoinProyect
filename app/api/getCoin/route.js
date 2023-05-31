@@ -8,6 +8,7 @@ export async function POST(request) {
   const data = await response.json();
 
 
-  return NextResponse.json({ data:data.data });
+  return NextResponse.json({ data:data.data});
 }
+
 

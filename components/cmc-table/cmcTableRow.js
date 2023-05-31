@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import More from "../../assets/svg/more";
-import Star from "../../assets/svg/star";
+import Star from "../star";
 import CoinNameRow from "./coinNameRow";
 import Rate from "./rate";
 import { useRouter } from "next/router";
@@ -70,7 +70,7 @@ const CMCtableRow = ({
     <tbody className={styles.tableRow}>
       <tr>
         <td>
-          <Star />
+          <Star id={coinSymbol}/>
         </td>
         <td>{starNum}</td>
 

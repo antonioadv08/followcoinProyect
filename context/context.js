@@ -18,6 +18,7 @@ export const CoinMarketContext = createContext();
 export const CoinMarketProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState("");
   const [user, setUser] = useState(null);
+  const [watchlist, setWatchlist] = useState([]);
 
   const setSearchedCoin = (data) => {
     setSearchValue(data);
@@ -37,7 +38,7 @@ export const CoinMarketProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       const session = await getSession();
-      
+
       if (session) {
         setUser(session.user);
       }
@@ -52,7 +53,8 @@ export const CoinMarketProvider = ({ children }) => {
         searchValue,
         setSearchValue,
         user,
-        
+        watchlist,
+        setWatchlist,
       }}
     >
       {children}
