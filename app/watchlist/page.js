@@ -5,12 +5,13 @@ import "tailwindcss/tailwind.css";
 import { ScaleLoader } from "react-spinners";
 import CMCtableHeader from "@/components/cmc-table/cmcTableHeader";
 import CMCtableRow from "@/components/cmc-table/cmcTableRow";
-import btc from "@/assets/btc.png";
+import { useRouter } from "next/navigation";
 
 function watchlist() {
   const { watchlist } = useContext(CoinMarketContext);
 
-  let { getCoins } = useContext(CoinMarketContext);
+  let { getCoins, user } = useContext(CoinMarketContext);
+  const router = useRouter();
 
   let [coinData, setCoinData] = useState(null);
 
@@ -24,6 +25,10 @@ function watchlist() {
   }, [getCoins]);
 
   useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+
     setData();
     filterData();
   }, []);
@@ -49,7 +54,6 @@ function watchlist() {
                   starNum={coin.cmc_rank}
                   coinName={coin.name}
                   coinSymbol={coin.symbol}
-                  coinIcon={btc}
                   showBuy={true}
                   hRate={coin.quote.USD.percent_change_24h}
                   dRate={coin.quote.USD.percent_change_7d}

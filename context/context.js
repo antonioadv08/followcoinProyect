@@ -2,17 +2,6 @@
 import { createContext, useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
 
-// import {
-//   dogeAbi,
-//   daiAbi,
-//   linkAbi,
-//   usdcAbi,
-//   dogeAddress,
-//   linkAddress,
-//   daiAddress,
-//   usdcAddress,
-// } from "../lib/constants";
-
 export const CoinMarketContext = createContext();
 
 export const CoinMarketProvider = ({ children }) => {
@@ -38,6 +27,7 @@ export const CoinMarketProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       const session = await getSession();
+      console.log(session, "context");
 
       if (session) {
         setUser(session.user);

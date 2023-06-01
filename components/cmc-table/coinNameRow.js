@@ -8,8 +8,6 @@ const CoinNameRow = ({ name, coinSymbol }) => {
   const [coinInfo, setCoinInfo] = useState({});
   const router = usePathname();
 
-  console.log(router);
-
   const setData = useCallback(async () => {
     try {
       const res = await fetch(`/api/getCoin`, {
