@@ -1,17 +1,23 @@
-import ChevronDown from "../../assets/svg/chevronDown"
-import ChevronUp from "../../assets/svg/chevronUp"
+import ChevronDown from "../../assets/svg/chevronDown";
+import ChevronUp from "../../assets/svg/chevronUp";
 
 const styles = {
-    rate: `rate flex items-center`,
-    red: `ml-2 text-[#EA3943]`,
-    green: `ml-2 text-[#17C784]`
-}
+  rate: `rate flex items-center`,
+  red: `ml-2 text-[#EA3943]`,
+  green: `ml-2 text-[#17C784]`,
+};
 
-const Rate = ({ isIncrement, rate }) => {
-    return <div className={styles.rate}>
-        {isIncrement ? <ChevronUp fill="#17C784" /> : <ChevronDown fill="#EA3943" />}
-        <p className={isIncrement ? styles.green : styles.red}>{rate}</p>
+const Rate = ({ rate }) => {
+  return (
+    <div className={styles.rate}>
+      {rate.includes("-") ? (
+        <ChevronDown fill="#EA3943" />
+      ) : (
+        <ChevronUp fill="#17C784" />
+      )}
+      <p className={rate.includes("-") ? styles.red : styles.green}>{rate}</p>
     </div>
-}
+  );
+};
 
-export default Rate
+export default Rate;

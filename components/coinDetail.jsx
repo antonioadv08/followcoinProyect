@@ -11,6 +11,7 @@ function coinDetail({ coin }) {
   const [historicalPrices, setHistoricalPrices] = useState(null);
 
   const setData = useCallback(async () => {
+    console.log(coin);
     try {
       const res = await fetch(`/api/getCoin`, {
         method: "POST",
@@ -41,7 +42,10 @@ function coinDetail({ coin }) {
   }, [coin]);
 
   useEffect(() => {
-    setData();
+    if(coin){
+
+      setData();
+    }
     getHistoricalPrices();
   }, [coin, setData]);
 

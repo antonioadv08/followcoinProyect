@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 //  import Search from '../assets/svg/search'
 //  import { ConnectButton } from 'web3uikit'
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CoinMarketContext } from "../context/context";
 
 const styles = {
@@ -20,10 +20,11 @@ const styles = {
 };
 
 const Header = () => {
-  //    const { getQuote } = useContext(CoinMarketContext)
-
-  //comprobar si el usuario esta logueado desde el context
   const { user } = useContext(CoinMarketContext);
+  const openLoginPopup = () => {
+    window.open("/api/auth/signin", "loginPopup", "width=600,height=600");
+  };
+
 
   return (
     <div className={styles.header}>
@@ -41,17 +42,40 @@ const Header = () => {
           <div className={styles.navItem}>
             <div className={styles.navLink}>Exchange</div>
           </div>
-          <Link href="/portfolio">
-
-          <div className={styles.navItem}>
-            <div className={styles.navLink}>Portfolio</div>
-          </div>
-          </Link>
-          <Link href="/watchlist">
-            <div className={styles.navItem}>
+          {user ? (
+            <Link href="/portfolio">
+              <div className={styles.navItem}>
+                <div className={styles.navLink}>Portfolio</div>
+              </div>
+            </Link>
+          ) : (
+            <div
+              className={styles.navItem}
+              style={{ cursor: user ? "pointer" : "not-allowed" }}
+              title={
+                user ? "" : "Debes iniciar sesión para utilizar esta función."
+              }
+            >
+              <div className={styles.navLink}>Portfolio</div>
+            </div>
+          )}
+          {user ? (
+            <Link href="/watchlist">
+              <div className={styles.navItem}>
+                <div className={styles.navLink}>Watchlist</div>
+              </div>
+            </Link>
+          ) : (
+            <div
+              className={styles.navItem}
+              style={{ cursor: user ? "pointer" : "not-allowed" }}
+              title={
+                user ? "" : "Debes iniciar sesión para utilizar esta función."
+              }
+            >
               <div className={styles.navLink}>Watchlist</div>
             </div>
-          </Link>
+          )}
         </nav>
 
         <div className="flex items-center">
@@ -68,6 +92,7 @@ const Header = () => {
               <div className={styles.cursorPointer}>Login</div>
             </Link>
           )}
+          <button onClick={openLoginPopup}>Iniciar sesión</button>
         </div>
       </div>
     </div>
