@@ -4,14 +4,14 @@ import { ScaleLoader } from "react-spinners";
 import "tailwindcss/tailwind.css";
 import Image from "next/image";
 import Chart from "./chart";
-import Chat from "./chat";
+// import Chat from "./chat";
+import News from "./news";
 
 function coinDetail({ coin }) {
   const [coinInfo, setCoinInfo] = useState(null);
   const [historicalPrices, setHistoricalPrices] = useState(null);
 
   const setData = useCallback(async () => {
-    console.log(coin);
     try {
       const res = await fetch(`/api/getCoin`, {
         method: "POST",
@@ -42,8 +42,7 @@ function coinDetail({ coin }) {
   }, [coin]);
 
   useEffect(() => {
-    if(coin){
-
+    if (coin) {
       setData();
     }
     getHistoricalPrices();
@@ -64,13 +63,13 @@ function coinDetail({ coin }) {
       {historicalPrices ? (
         <div>
           <h1>Historical Prices</h1>
-          <Chart historicalPrices={historicalPrices}/>
+          <Chart historicalPrices={historicalPrices} />
         </div>
       ) : (
         <ScaleLoader color="#36d7b7" />
       )}
-      <Chat/>
-
+      {coin ? <News coin={coin} /> : <ScaleLoader color="#36d7b7" />}
+      {/* <Chat coin={coin} /> */}
     </div>
   );
 }

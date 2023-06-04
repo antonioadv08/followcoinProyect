@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { CoinMarketContext } from "../../context/context";
 import "tailwindcss/tailwind.css";
@@ -7,10 +7,11 @@ import CMCtableHeader from "@/components/cmc-table/cmcTableHeader";
 import CMCtableRow from "@/components/cmc-table/cmcTableRow";
 import { useRouter } from "next/navigation";
 
-function watchlist() {
-  const { watchlist } = useContext(CoinMarketContext);
+function Watchlist() {
+  const { watchlist, setWatchlist, getCoins, user } = useContext(
+    CoinMarketContext
+  );
 
-  let { getCoins, user } = useContext(CoinMarketContext);
   const router = useRouter();
 
   let [coinData, setCoinData] = useState(null);
@@ -32,6 +33,7 @@ function watchlist() {
     setData();
     filterData();
   }, []);
+
   function filterData() {
     if (!coinData) return null;
     let filteredData = coinData.filter((coin) => {
@@ -45,32 +47,39 @@ function watchlist() {
     <div className="text-white font-bold">
       <div className="mx-auto max-w-screen-2xl">
         <table className="w-full">
-          <CMCtableHeader />
-          {coinData ? (
-            coinData.map((coin, index) => {
-              return (
-                <CMCtableRow
-                  key={index}
-                  starNum={coin.cmc_rank}
-                  coinName={coin.name}
-                  coinSymbol={coin.symbol}
-                  showBuy={true}
-                  hRate={coin.quote.USD.percent_change_24h}
-                  dRate={coin.quote.USD.percent_change_7d}
-                  hRateIsIncrement={true}
-                  price={coin.quote.USD.price}
-                  marketCapValue={coin.quote.USD.market_cap}
-                  volumeCryptoValue={coin.quote.USD.volume_24h}
-                  volumeValue={coin.total_supply}
-                  circulatingSupply={coin.circulating_supply}
-                />
-              );
-            })
+          {coinData && coinData.length > 0 ? (
+            <>
+              <CMCtableHeader />
+              {coinData.map((coin, index) => {
+                return (
+                  <CMCtableRow
+                    key={index}
+                    starNum={coin.cmc_rank}
+                    coinName={coin.name}
+                    coinSymbol={coin.symbol}
+                    showBuy={true}
+                    hRate={coin.quote.USD.percent_change_24h}
+                    dRate={coin.quote.USD.percent_change_7d}
+                    hRateIsIncrement={true}
+                    price={coin.quote.USD.price}
+                    marketCapValue={coin.quote.USD.market_cap}
+                    volumeCryptoValue={coin.quote.USD.volume_24h}
+                    volumeValue={coin.total_supply}
+                    circulatingSupply={coin.circulating_supply}
+                  />
+                );
+              })}
+            </>
+          ) : coinData && coinData.length === 0 ? (
+            <tbody>
+              <tr className="text-center">
+                <td>No coins in the watchlist</td>
+              </tr>
+            </tbody>
           ) : (
             <tbody>
               <tr>
                 <td>
-                  {" "}
                   <ScaleLoader color="#36d7b7" />
                 </td>
               </tr>
@@ -82,4 +91,4 @@ function watchlist() {
   );
 }
 
-export default watchlist;
+export default Watchlist;

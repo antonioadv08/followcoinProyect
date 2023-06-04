@@ -1,11 +1,13 @@
-"use client";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import BeatLoader from "react-spinners/BeatLoader";
 import { usePathname, useSearchParams } from "next/navigation";
+import "tailwindcss/tailwind.css"
+
 
 const CoinNameRow = ({ name, coinSymbol }) => {
   const [coinInfo, setCoinInfo] = useState({});
+  const [imageError, setImageError] = useState(false);
   const router = usePathname();
 
   const setData = useCallback(async () => {
@@ -31,19 +33,36 @@ const CoinNameRow = ({ name, coinSymbol }) => {
     }
   }, [setData]);
 
+  const getRandomImage = () => {
+    const images = ["/ae.png", "/adb.png", "/aeon.png", "/btcd.png","/ern.png","/fil.png","/fida.png","/gold.png"];
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+  };
+
   return (
     <div className="flex">
-      {router !== "/" ? (
-        coinInfo.logo ? (
-          <>
-            <Image src={coinInfo.logo} alt={name} width={30} height={20} />
-            <p className="ml-2">{name}</p>
-          </>
-        ) : (
-          <BeatLoader color="#36d7b7" />
-        )
+      {coinInfo ? (
+        <>
+          <Image
+            src={`/${coinSymbol}.png`}
+            alt={name}
+            width={30}
+            height={20}
+            onError={() => setImageError(true)}
+            style={{ display: imageError ? "none" : "block" }}
+          />
+          {imageError && (
+            <Image
+              src={getRandomImage()}
+              alt="Random Coin"
+              width={30}
+              height={20}
+            />
+          )}
+          <p className="ml-2">{name}</p>
+        </>
       ) : (
-        <p>{name}</p>
+        <BeatLoader color="#36d7b7" />
       )}
     </div>
   );

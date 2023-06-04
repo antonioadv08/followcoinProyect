@@ -1,6 +1,6 @@
 "use client"
-import ChevronDown from "../../assets/svg/chevronDown"
-import Info from "../../assets/svg/info"
+import ChevronDown from "../../public/svg/chevronDown"
+import Info from "../../public/svg/info"
 
 const styles = {
     textIcon: `flex items-center`

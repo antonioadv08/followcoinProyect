@@ -27,10 +27,20 @@ export const CoinMarketProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       const session = await getSession();
-      console.log(session, "context");
-
       if (session) {
         setUser(session.user);
+        const res = await fetch("/api/updatewatchlist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: session.user,
+          }),
+        });
+  
+        const data = await res.json();
+        setWatchlist(data);
       }
     })();
   }, []);

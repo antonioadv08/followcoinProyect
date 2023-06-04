@@ -1,6 +1,5 @@
 "use client";
 import { useContext, useEffect, useState, useCallback } from "react";
-import btc from "../../assets/btc.png";
 import { CoinMarketContext } from "../../context/context";
 import CMCtableHeader from "./cmcTableHeader";
 import CMCtableRow from "./cmcTableRow";
@@ -35,7 +34,8 @@ const CMCtable = () => {
     }
   }
 
-
+  
+  
   coinData = filterData();
 
   return (

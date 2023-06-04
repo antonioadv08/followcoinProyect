@@ -1,75 +1,62 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-let socket;
+const socket = io("/");
 
-const chat = () => {
+export default function App() {
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const [username, setUsername] = useState("");
-  const [allMessages, setAllMessages] = useState([]);
 
   useEffect(() => {
-    socketInitializer();
+    const receiveMessage = (message) => {
+      setMessages([message, ...messages]);
+    };
+
+    socket.on("message", receiveMessage);
 
     return () => {
-      socket.disconnect();
+      socket.off("message", receiveMessage);
     };
-  }, []);
+  }, [messages]);
 
-  async function socketInitializer() {
-    await fetch("/api/socket");
-
-    socket = io();
-
-    socket.on("receive-message", (data) => {
-      setAllMessages((pre) => [...pre, data]);
-    });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    console.log("emitted");
-
-    socket.emit("send-message", {
-      username,
-      message
-    });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newMessage = {
+      body: message,
+      from: "Me",
+    };
+    setMessages([newMessage, ...messages]);
     setMessage("");
-  }
+    socket.emit("message", newMessage.body);
+  };
 
   return (
-    <div>
-      <h1>Chat app</h1>
-      <h1>Enter a username</h1>
+    <div className="h-screen bg-zinc-800 text-white flex items-center justify-center">
+      <form onSubmit={handleSubmit} className="bg-zinc-900 p-10">
+        <h1 className="text-2xl font-bold my-2">Chat React</h1>
+        <input
+          name="message"
+          type="text"
+          placeholder="Write your message..."
+          onChange={(e) => setMessage(e.target.value)}
+          className="border-2 border-zinc-500 p-2 w-full text-black"
+          value={message}
+          autoFocus
+        />
 
-      <input value={username} onChange={(e) => setUsername(e.target.value)} />
-
-      <br />
-      <br />
-
-      <div>
-        {allMessages.map(({ username, message }, index) => (
-          <div key={index}>
-            {username}: {message}
-          </div>
-        ))}
-
-        <br />
-
-        <form onSubmit={handleSubmit}>
-          <input
-            name="message"
-            placeholder="enter your message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            autoComplete={"off"}
-          />
-        </form>
-      </div>
+        <ul className="h-80 overflow-y-auto">
+          {messages.map((message, index) => (
+            <li
+              key={index}
+              className={`my-2 p-2 table text-sm rounded-md ${
+                message.from === "Me" ? "bg-sky-700 ml-auto" : "bg-black"
+              }`}
+            >
+              <b>{message.from}</b>:{message.body}
+            </li>
+          ))}
+        </ul>
+      </form>
     </div>
   );
-};
-
-export default chat;
+}
