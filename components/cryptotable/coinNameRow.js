@@ -54,7 +54,7 @@ const CoinNameRow = ({ name, coinSymbol }) => {
           />
           {imageError && (
             <Image
-              src={`/${coinSymbol}.png`}
+              src={getRandomImage()}
               alt="Random Coin"
               width={30}
               height={20}
