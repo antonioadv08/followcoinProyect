@@ -40,9 +40,14 @@ EMAIL_SERVER_PASSWORD=contraseña-del-servidor-de-correo
 EMAIL_FROM=dirección-de-correo-del-remite
 NEXTAUTH_SECRET=secreto-de-nextauth
 NEXTAUTH_URL=url-de-nextauth
+GITHUB_ID=id-de-tu-aplicación-de-github
+GITHUB_SECRET=secreto-de-tu-aplicación-de-github
+GOOGLE_ID=id-de-tu-aplicación-de-google
+GOOGLE_SECRET=secreto-de-tu-aplicación-de-google
 ```
+Necesitas una direccion de mongodb Atlas, las api keys de newsdata,binance y coinmarketcap, para el login social necesitas las variables de nextauth y de github y google y para el servidor de correo necesitas crear uno en una cuenta de gmail.
 
-Inicia la aplicación:
+## Inicia la aplicación:
 
 ```
 npm run dev
@@ -52,5 +57,12 @@ Abre tu navegador y ve a http://localhost:3000 para ver la aplicación en funcio
 
 ## Conclusiones
 Siguiendo estas instrucciones, deberías poder realizar el deploy local de la aplicación FollowCoin. Asegúrate de definir correctamente todas las variables de entorno necesarias antes de iniciar la aplicación.
+
+## Proyecto desplegado
+Para ver el proyecto desplegado visita estas urls:
+
+https://followcoinproyect.up.railway.app/
+
+https://followcoin-proyect.vercel.app/
 
 Si tienes cualquier problema durante el proceso de deploy, consulta la documentación oficial de Next.js y asegúrate de tener las últimas versiones de todas las dependencias instaladas.
