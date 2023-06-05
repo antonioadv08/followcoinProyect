@@ -39,12 +39,13 @@ const CoinNameRow = ({ name, coinSymbol }) => {
     return images[randomIndex];
   };
 
+
   return (
     <div className="flex">
       {coinInfo ? (
         <>
           <Image
-            src={`/static/images/${coinSymbol}.png`}
+            src={`/${coinSymbol.toLowerCase()}.png`}
             alt={name}
             width={30}
             height={20}
@@ -53,7 +54,7 @@ const CoinNameRow = ({ name, coinSymbol }) => {
           />
           {imageError && (
             <Image
-              src={getRandomImage()}
+              src={`/${coinSymbol}.png`}
               alt="Random Coin"
               width={30}
               height={20}
