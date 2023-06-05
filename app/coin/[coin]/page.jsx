@@ -6,9 +6,6 @@ import "tailwindcss/tailwind.css";
 async function coin({ params }) {
   return (
     <div>
-      <Link href="/" className="text-white">
-        Volver
-      </Link>
       <CoinDetail coin={params.coin} />
     </div>
   );

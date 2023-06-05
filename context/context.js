@@ -38,7 +38,7 @@ export const CoinMarketProvider = ({ children }) => {
             user: session.user,
           }),
         });
-  
+
         const data = await res.json();
         setWatchlist(data);
       }

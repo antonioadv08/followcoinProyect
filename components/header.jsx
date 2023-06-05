@@ -2,10 +2,10 @@
 import Search from "../components/search";
 import Image from "next/image";
 import Link from "next/link";
-//  import Search from '../assets/svg/search'
-//  import { ConnectButton } from 'web3uikit'
+
 import { useContext, useEffect } from "react";
 import { CoinMarketContext } from "../context/context";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const styles = {
   navLink: `text-white flex mx-[10px]`,
@@ -21,14 +21,12 @@ const styles = {
 
 const Header = () => {
   const { user } = useContext(CoinMarketContext);
-  const openLoginPopup = () => {
-    window.open("/api/auth/signin", "loginPopup", "width=600,height=600");
-  };
 
+  const router = usePathname();
 
   return (
     <div className={styles.header}>
-      {user && <div>hola {user.name}</div>}
+      {user && <div>{/^[^@]*/.exec(user.email)}</div>}
       <Link href="/">
         <Image
           alt=""
@@ -39,26 +37,12 @@ const Header = () => {
       </Link>
       <div className={styles.headerWrapper}>
         <nav className={styles.nav}>
-          <div className={styles.navItem}>
-            <div className={styles.navLink}>Exchange</div>
-          </div>
-          {user ? (
-            <Link href="/portfolio">
-              <div className={styles.navItem}>
-                <div className={styles.navLink}>Portfolio</div>
-              </div>
-            </Link>
-          ) : (
-            <div
-              className={styles.navItem}
-              style={{ cursor: user ? "pointer" : "not-allowed" }}
-              title={
-                user ? "" : "Debes iniciar sesión para utilizar esta función."
-              }
-            >
-              <div className={styles.navLink}>Portfolio</div>
+          <Link href="/">
+            <div className={styles.navItem}>
+              <div className={styles.navLink}>Home</div>
             </div>
-          )}
+          </Link>
+
           {user ? (
             <Link href="/watchlist">
               <div className={styles.navItem}>
@@ -81,7 +65,7 @@ const Header = () => {
         <div className="flex items-center">
           {/* <ConnectButton /> */}
           <div className={styles.inputContainer}>
-            <Search />
+            {router === "/" ? <Search /> : null}
           </div>
           {user ? (
             <Link href="/api/auth/signout">
@@ -92,7 +76,6 @@ const Header = () => {
               <div className={styles.cursorPointer}>Login</div>
             </Link>
           )}
-          <button onClick={openLoginPopup}>Iniciar sesión</button>
         </div>
       </div>
     </div>

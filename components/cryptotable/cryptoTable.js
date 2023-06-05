@@ -1,8 +1,8 @@
 "use client";
 import { useContext, useEffect, useState, useCallback } from "react";
 import { CoinMarketContext } from "../../context/context";
-import CMCtableHeader from "./cmcTableHeader";
-import CMCtableRow from "./cmcTableRow";
+import CryptoTableHeader from "./cryptoTableHeader";
+import CryptoTableRow from "./cryptoTableRow";
 import { ScaleLoader } from "react-spinners";
 
 const CMCtable = () => {
@@ -42,11 +42,11 @@ const CMCtable = () => {
     <div className="text-white font-bold">
       <div className="mx-auto max-w-screen-2xl">
         <table className="w-full">
-          <CMCtableHeader />
+          <CryptoTableHeader />
           {coinData ? (
             coinData.map((coin, index) => {
               return (
-                <CMCtableRow
+                <CryptoTableRow
                   key={index}
                   starNum={coin.cmc_rank}
                   coinName={coin.name}

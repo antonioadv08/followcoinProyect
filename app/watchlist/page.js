@@ -3,8 +3,8 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 import { CoinMarketContext } from "../../context/context";
 import "tailwindcss/tailwind.css";
 import { ScaleLoader } from "react-spinners";
-import CMCtableHeader from "@/components/cmc-table/cmcTableHeader";
-import CMCtableRow from "@/components/cmc-table/cmcTableRow";
+import CMCtableHeader from "@/components/cryptotable/cryptoTableHeader";
+import CMCtableRow from "@/components/cryptotable/cryptoTableRow";
 import { useRouter } from "next/navigation";
 
 function Watchlist() {

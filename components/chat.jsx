@@ -1,39 +1,54 @@
-import { useEffect, useState } from "react";
-import io from "socket.io-client";
+"use client";
+import { useEffect, useState, useContext } from "react";
+import { CoinMarketContext } from "../context/context";
 
-const socket = io("/");
-
-export default function App() {
+export default function chat({ coin }) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const { user } = useContext(CoinMarketContext);
+
+  const getMessages = async () => {
+    try {
+      const res = await fetch("/api/getMesagges/" + coin);
+      const messages = await res.json();
+      setMessages(messages);  
+  
+    
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   useEffect(() => {
-    const receiveMessage = (message) => {
-      setMessages([message, ...messages]);
-    };
+    getMessages();
+  }, []);
 
-    socket.on("message", receiveMessage);
 
-    return () => {
-      socket.off("message", receiveMessage);
-    };
-  }, [messages]);
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const newMessage = {
       body: message,
-      from: "Me",
+      from: user.email,
     };
     setMessages([newMessage, ...messages]);
     setMessage("");
-    socket.emit("message", newMessage.body);
+    await fetch("/api/updatechat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        coin: coin,
+        user: user,
+        message: newMessage,
+      }),
+    });
   };
 
   return (
-    <div className="h-screen bg-zinc-800 text-white flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="bg-zinc-900 p-10">
-        <h1 className="text-2xl font-bold my-2">Chat React</h1>
+    <div className="h-screen  text-white flex items-center justify-center">
+      <form onSubmit={handleSubmit} className=" p-10">
+        <h1 className="text-2xl font-bold my-2">{coin} chat</h1>
         <input
           name="message"
           type="text"
@@ -45,14 +60,14 @@ export default function App() {
         />
 
         <ul className="h-80 overflow-y-auto">
-          {messages.map((message, index) => (
+          {messages?.map((message, index) => (
             <li
               key={index}
               className={`my-2 p-2 table text-sm rounded-md ${
-                message.from === "Me" ? "bg-sky-700 ml-auto" : "bg-black"
+                message.from === user.email ? "bg-sky-700 ml-auto" : "bg-black"
               }`}
             >
-              <b>{message.from}</b>:{message.body}
+              <b>{/^[^@]*/.exec(message.from)}</b>:{message.body}
             </li>
           ))}
         </ul>

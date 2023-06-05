@@ -1,15 +1,16 @@
-"use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { ScaleLoader } from "react-spinners";
-import "tailwindcss/tailwind.css";
 import Image from "next/image";
 import Chart from "./chart";
-// import Chat from "./chat";
+import Chat from "./chat";
 import News from "./news";
+import { CoinMarketContext } from "../context/context";
 
-function coinDetail({ coin }) {
+function CoinDetail({ coin }) {
   const [coinInfo, setCoinInfo] = useState(null);
   const [historicalPrices, setHistoricalPrices] = useState(null);
+
+  const { user } = useContext(CoinMarketContext);
 
   const setData = useCallback(async () => {
     try {
@@ -47,15 +48,25 @@ function coinDetail({ coin }) {
     }
     getHistoricalPrices();
   }, [coin, setData]);
+  console.log(coinInfo);
 
   return (
-    <div className="text-white">
-      coinDetail
+    <div className="text-white flex flex-col md:flex-row gap-4">
+    <div className="md:w-3/4">
       {coinInfo ? (
-        <div>
-          <h1>{coinInfo.description}</h1>
-
-          <Image src={coinInfo.logo} alt="coin logo" width={64} height={64} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Image
+              src={coinInfo.logo}
+              alt="coin logo"
+              width={64}
+              height={64}
+            />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">{coinInfo.name}</h1>
+            <p className="text-gray-400">{coinInfo.description}</p>
+          </div>
         </div>
       ) : (
         <ScaleLoader color="#36d7b7" />
@@ -68,10 +79,22 @@ function coinDetail({ coin }) {
       ) : (
         <ScaleLoader color="#36d7b7" />
       )}
-      {coin ? <News coin={coin} /> : <ScaleLoader color="#36d7b7" />}
-      {/* <Chat coin={coin} /> */}
     </div>
+    <div className="md:w-1/4">
+      {user ? (
+        <Chat
+          coin={coin}
+          style={{ cursor: user ? "pointer" : "not-allowed" }}
+          title={
+            user ? "" : "Debes iniciar sesión para utilizar esta función."
+          }
+        />
+      ) : (
+        <p>Logeate</p>
+      )}
+    </div>
+  </div>
   );
 }
 
-export default coinDetail;
+export default CoinDetail;

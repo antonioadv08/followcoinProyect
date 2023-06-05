@@ -29,7 +29,7 @@ function news({ coin }) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {news ? (
+      {news.length>2 ? (
         <ul className="list-disc pl-4">
           {news.map((item) => (
             <li key={item.url} className="py-4">
