@@ -1,34 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+FollowCoin
+FollowCoin es un proyecto desarrollado en Next.js que utiliza una base de datos MongoDB Atlas y diversas APIs para obtener información de criptomonedas, noticias y datos de mercado. También utiliza variables de entorno para la autenticación social de GitHub y Google, así como para la autenticación de NextAuth y el servidor SMTP de Gmail de Google.
 
-## Getting Started
+Requisitos previos
+Para poder desplegar FollowCoin en local, necesitarás tener instalado lo siguiente:
 
-First, run the development server:
+Node.js
+MongoDB Atlas
+API Key de CoinMarketCap
+API Key de Binance
+API Key de Newsdata
+Configuración
+Clona el repositorio de FollowCoin:
+Copy
+git clone https://github.com/tu-usuario/followcoin
+Abre el archivo .env.example en un editor de texto y renómbralo como .env.
 
-```bash
+En el archivo .env, configura las siguientes variables de entorno con tus propias claves API:
+
+Copy
+NEXT_PUBLIC_COINMARKETCAP_API_KEY=your-coinmarketcap-api-key
+NEXT_PUBLIC_BINANCE_API_KEY=your-binance-api-key
+NEXT_PUBLIC_NEWSDATA_API_KEY=your-newsdata-api-key
+Configura las variables de entorno para la autenticación social de GitHub y Google en el archivo .env. Para obtener más información sobre cómo configurar estas variables de entorno, consulta la documentación de NextAuth.js.
+
+Configura las variables de entorno para el servidor SMTP de Gmail de Google en el archivo .env. Para obtener más información sobre cómo configurar estas variables de entorno, consulta la documentación de Nodemailer.
+
+Configura la conexión a la base de datos MongoDB Atlas en el archivo mongo.js. Para obtener más información sobre cómo configurar la conexión a MongoDB Atlas, consulta la documentación de MongoDB Atlas.
+
+Ejecución
+Abre una terminal en el directorio raíz del proyecto.
+
+Ejecuta el siguiente comando para instalar las dependencias del proyecto:
+
+Copy
+npm install
+Ejecuta el siguiente comando para iniciar el servidor de desarrollo de Next.js:
+Copy
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Abre un navegador web y visita http://localhost:3000 para ver la aplicación en funcionamiento.
