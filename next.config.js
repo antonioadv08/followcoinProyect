@@ -40,6 +40,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "followcoin-proyect.vercel.app",
+        port: "",
+        pathname: "/public/coinlogo/128/color/**",
+      },
     ],
   },
 };
