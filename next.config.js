@@ -46,6 +46,12 @@ const nextConfig = {
         port: "",
         pathname: "/public/coinlogo/128/color/**",
       },
+      {
+        protocol: "https",
+        hostname: "followcoinproyect.up.railway.app",
+        port: "",
+        pathname: "/public/coinlogo/128/color/**",
+      },
     ],
   },
 };
