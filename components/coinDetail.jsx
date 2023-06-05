@@ -5,6 +5,7 @@ import Chart from "./chart";
 import Chat from "./chat";
 import News from "./news";
 import { CoinMarketContext } from "../context/context";
+import Link from "next/link";
 
 function CoinDetail({ coin }) {
   const [coinInfo, setCoinInfo] = useState(null);
@@ -48,59 +49,61 @@ function CoinDetail({ coin }) {
     }
     getHistoricalPrices();
   }, [coin, setData]);
+
   console.log(coinInfo);
 
   return (
-    <div className="text-white flex flex-col md:flex-row gap-4">
-      <div className="md:w-3/4">
-        {coinInfo ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Image
-                src={coinInfo.logo}
-                alt="coin logo"
-                width={64}
-                height={64}
-              />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold">{coinInfo.name}</h1>
-              <p className="text-gray-400">{coinInfo.description}</p>
-            </div>
+    <div>
+      {coinInfo ? (
+        <div className="flex items-center">
+          <div className="w-64">
+            <Image src={coinInfo.logo} alt="coin logo" width={64} height={64} />
           </div>
-        ) : (
-          <ScaleLoader color="#36d7b7" />
-        )}
-        <div className="flex h-full items-center justify-center">
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-white">{coinInfo.name}</h1>
+            <p className="text-gray-400">{coinInfo.description}</p>
+            <Link href={coinInfo.urls.website}>
+              <p className="text-gray-400">
+                For more information click {coinInfo.urls.website}
+              </p>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <ScaleLoader color="#36d7b7" />
+      )}
+      <div className="flex flex-wrap">
+        <div className="w-full sm:w-1/2 p-2">
           {historicalPrices ? (
             <div>
-              <h1>Historical Prices</h1>
+              <h1 className="text-2xl font-bold text-white text-center">
+                Historical Prices
+              </h1>
               <Chart historicalPrices={historicalPrices} />
             </div>
           ) : (
             <ScaleLoader color="#36d7b7" />
           )}
         </div>
+        <div className="w-full sm:w-1/2 p-2">
+          {user ? (
+            <Chat
+              coin={coin}
+              style={{ cursor: user ? "pointer" : "not-allowed" }}
+              title={
+                user ? "" : "Debes iniciar sesión para utilizar esta función."
+              }
+            />
+          ) : (
+            <div>
+              <p className="text-center">
+                You need to be logged in to use the chat
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="md:w-1/4">
-        {user ? (
-          <Chat
-            coin={coin}
-            style={{ cursor: user ? "pointer" : "not-allowed" }}
-            title={
-              user ? "" : "Debes iniciar sesión para utilizar esta función."
-            }
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <p className="text-center">
-              You need to be logged in to use the chat
-            </p>
-          </div>
-        )}
-        {/* {coin ? <News coin={coin} /> : <ScaleLoader color="#36d7b7" />} */}
-
-      </div>
+      {coin ? <News coin={coin} /> : <ScaleLoader color="#36d7b7" />}
     </div>
   );
 }

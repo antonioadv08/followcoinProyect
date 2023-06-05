@@ -2,7 +2,6 @@ import clientPromise from "./../../../../lib/mongodb";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request, context) {
-  console.log("GET");
   const coin = context.params.coin[0];
 
   //conectate a la base de datos y actualizala

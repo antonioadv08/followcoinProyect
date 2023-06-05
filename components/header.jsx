@@ -27,9 +27,7 @@ const Header = () => {
   return (
     <div className={styles.header}>
       {user && <div>{/^[^@]*/.exec(user.email)}</div>}
-      <Link href="/">
-        <Image alt="" src="/followcoin.png" width={220} height={220} />
-      </Link>
+        <Image alt="" src="/followcoin.png" width={220} height={220} className={"object-none w-full"}/>
       <div className={styles.headerWrapper}>
         <nav className={styles.nav}>
           <Link href="/">

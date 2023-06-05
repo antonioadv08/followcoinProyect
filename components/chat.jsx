@@ -11,9 +11,7 @@ export default function chat({ coin }) {
     try {
       const res = await fetch("/api/getMesagges/" + coin);
       const messages = await res.json();
-      setMessages(messages);  
-  
-    
+      setMessages(messages);
     } catch (e) {
       console.log(e.message);
     }
@@ -23,14 +21,13 @@ export default function chat({ coin }) {
     getMessages();
   }, []);
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newMessage = {
       body: message,
       from: user.email,
     };
-    setMessages([ ...messages,newMessage]);
+    setMessages([...messages, newMessage]);
     setMessage("");
     await fetch("/api/updatechat", {
       method: "POST",
@@ -46,32 +43,32 @@ export default function chat({ coin }) {
   };
 
   return (
-    <div className="h-screen  text-white flex items-center justify-center">
-      <form onSubmit={handleSubmit} className=" p-10">
-        <h1 className="text-2xl font-bold my-2">{coin} chat</h1>
-        <input
-          name="message"
-          type="text"
-          placeholder="Write your message..."
-          onChange={(e) => setMessage(e.target.value)}
-          className="border-2 border-zinc-500 p-2 w-full text-black"
-          value={message}
-          autoFocus
-        />
+<div className="text-white flex items-center justify-center">
+  <form onSubmit={handleSubmit} className="mt-4">
+    <h1 className="text-2xl font-bold my-2">{coin} chat</h1>
+    <input
+      name="message"
+      type="text"
+      placeholder="Write your message..."
+      onChange={(e) => setMessage(e.target.value)}
+      className="border-2 border-zinc-500 p-2 w-full text-black"
+      value={message}
+      autoFocus
+    />
 
-        <ul className="h-80 overflow-y-auto">
-          {messages?.map((message, index) => (
-            <li
-              key={index}
-              className={`my-2 p-2 table text-sm rounded-md ${
-                message.from === user.email ? "bg-sky-700 ml-auto" : "bg-black"
-              }`}
-            >
-              <b>{/^[^@]*/.exec(message.from)}</b>:{message.body}
-            </li>
-          ))}
-        </ul>
-      </form>
-    </div>
+    <ul className="max-h-60vh overflow-y-scroll" style={{ maxHeight: "400px" }}>
+      {messages?.map((message, index) => (
+        <li
+          key={index}
+          className={`my-2 p-2 table text-sm rounded-md ${
+            message.from === user.email ? "bg-sky-700 ml-auto" : "bg-black"
+          }`}
+        >
+          <b>{/^[^@]*/.exec(message.from)}</b>:{message.body}
+        </li>
+      ))}
+    </ul>
+  </form>
+</div>
   );
 }
