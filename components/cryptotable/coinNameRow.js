@@ -44,7 +44,7 @@ const CoinNameRow = ({ name, coinSymbol }) => {
       {coinInfo ? (
         <>
           <Image
-            src={`/${coinSymbol}.png`}
+            src={`/static/images/${coinSymbol}.png`}
             alt={name}
             width={30}
             height={20}
