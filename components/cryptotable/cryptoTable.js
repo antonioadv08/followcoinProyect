@@ -6,7 +6,7 @@ import CryptoTableRow from "./cryptoTableRow";
 import { ScaleLoader } from "react-spinners";
 
 const CMCtable = () => {
-  let { getCoins, searchValue,setSearchValue } = useContext(CoinMarketContext);
+  let { getCoins, searchValue, setSearchValue } = useContext(CoinMarketContext);
 
   let [coinData, setCoinData] = useState(null);
   let [price, setPrice] = useState(null);
@@ -34,8 +34,6 @@ const CMCtable = () => {
     }
   }
 
-  
-  
   coinData = filterData();
 
   return (
@@ -67,7 +65,9 @@ const CMCtable = () => {
               <tr>
                 <td>
                   {" "}
-                  <ScaleLoader color="#36d7b7" />
+                  <div className="flex h-full items-center justify-center">
+                    <ScaleLoader color="#36d7b7" />
+                  </div>{" "}
                 </td>
               </tr>
             </tbody>

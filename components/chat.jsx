@@ -30,7 +30,7 @@ export default function chat({ coin }) {
       body: message,
       from: user.email,
     };
-    setMessages([newMessage, ...messages]);
+    setMessages([ ...messages,newMessage]);
     setMessage("");
     await fetch("/api/updatechat", {
       method: "POST",

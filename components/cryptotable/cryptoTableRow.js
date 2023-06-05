@@ -62,7 +62,7 @@ const CMCtableRow = memo(
             </Link>
           </td>
 
-          <td className="cursor-pointer">
+          <td >
             <p>${formatNum(price)}</p>
           </td>
           <td>
