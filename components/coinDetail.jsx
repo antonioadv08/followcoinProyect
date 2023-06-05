@@ -95,8 +95,8 @@ function CoinDetail({ coin }) {
               }
             />
           ) : (
-            <div>
-              <p className="text-center">
+            <div className="flex justify-center items-center h-full">
+              <p className="text-center text-white">
                 You need to be logged in to use the chat
               </p>
             </div>
