@@ -50,7 +50,6 @@ function CoinDetail({ coin }) {
     getHistoricalPrices();
   }, [coin, setData]);
 
-  console.log(coinInfo);
 
   return (
     <div>
@@ -73,18 +72,18 @@ function CoinDetail({ coin }) {
         <ScaleLoader color="#36d7b7" />
       )}
       <div className="flex flex-wrap">
-        <div className="w-full sm:w-1/2 p-2">
-          {historicalPrices ? (
-            <div>
-              <h1 className="text-2xl font-bold text-white text-center">
-                Historical Prices
-              </h1>
-              <Chart historicalPrices={historicalPrices} />
-            </div>
-          ) : (
-            <ScaleLoader color="#36d7b7" />
-          )}
-        </div>
+      <div className="w-full sm:w-1/2 p-2 flex items-center">
+  {historicalPrices ? (
+    <div className="mx-auto">
+      <h1 className="text-2xl font-bold text-white text-center">
+        Historical Prices
+      </h1>
+      <Chart historicalPrices={historicalPrices} />
+    </div>
+  ) : (
+    <ScaleLoader color="#36d7b7" />
+  )}
+</div>
         <div className="w-full sm:w-1/2 p-2">
           {user ? (
             <Chat
